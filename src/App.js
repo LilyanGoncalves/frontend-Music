@@ -7,6 +7,7 @@ import TelaCadastroIntegrante from './telas/TelaCadastroIntegrante';
 import TelaCadastroMusica from './telas/TelaCadastroMusica';
 import TelaCadastroFuncao from './telas/TelaCadastroFuncao';
 import TelaCadastroMaterial from './telas/TelaCadastroMaterial';
+import TelaLogin from './telas/loginPage';
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' exact element={<TelaHome/>}/>
+          <Route path='/' exact element={<TelaLogin/>}/>
           <Route path='/home' exact element={<TelaHome/>}/>
           <Route path='/integrantes' exact element={<TelaCadastroIntegrante/>}/>
           <Route path='/funcoes' exact element={<TelaCadastroFuncao/>}/>
