@@ -1,16 +1,16 @@
 import { Button, Container, Form, Row, Table, InputGroup } from "react-bootstrap";
 import { urlBase } from "../utilitarios/definicoes";
 
-export default function TabelaMateriais(props) {
+export default function TabelaCAtegoriaMateriais(props) {
 
-    function excluirMaterial(id) {
+    function excluirCategoriaMaterial(id) {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
             "id": id
         });
-        fetch(urlBase + "/material",
+        fetch(urlBase + "/categoriamaterial",
             {
                 method: "DELETE",
                 headers: myHeaders,
@@ -19,11 +19,11 @@ export default function TabelaMateriais(props) {
             .then(async (resposta) => {
                 const resp = JSON.parse(await resposta.text())
                 if (resp.affectedRows >= 1) {
-                    alert("Material excluida com sucesso");
+                    alert("Categoria de Material excluida com sucesso");
                     //Código usado no exemplo em sala de aula
-                    const listaAtualizada = props.listaMateriais
-                        .filter((material) => material.id !== id)
-                    props.setListaMateriais(listaAtualizada);
+                    const listaAtualizada = props.listaCategoriaMateriais
+                        .filter((categoriaMaterial) => categoriaMaterial.id !== id)
+                    props.setListaCategoriaMateriais(listaAtualizada);
                 }
                 else {
                     alert("Erro ao excluir material, tente novamente!")
@@ -31,18 +31,17 @@ export default function TabelaMateriais(props) {
             })
     }
 
-    function filtrarMateriais(e) {
+    function filtrarCategoriaMateriais(e) {
         const termoBusca = e.currentTarget.value;
-        fetch(urlBase + "/material", { method: "GET" })
+        fetch(urlBase + "/categoriamaterial", { method: "GET" })
             .then((resposta) => {
                 return resposta.json()
-                debugger
             })
             .then((dados) => {
                 if (Array.isArray(dados)) {
-                    const resultadoBusca = dados.filter((material) =>
-                        material.nome.toLowerCase().includes(termoBusca.toLowerCase()));
-                    props.setListaMateriais(resultadoBusca);
+                    const resultadoBusca = dados.filter((categoriaMaterial) =>
+                        categoriaMaterial.nome.toLowerCase().includes(termoBusca.toLowerCase()));
+                    props.setListaCategoriaMateriais(resultadoBusca);
                 }
             })
     }
@@ -59,7 +58,7 @@ export default function TabelaMateriais(props) {
                     <InputGroup>
                         <Form.Control type="text"
                             id="termoBusca"
-                            onChange={filtrarMateriais}
+                            onChange={filtrarCategoriaMateriais}
                         />
                         <button>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -73,19 +72,17 @@ export default function TabelaMateriais(props) {
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>ID Categoria</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        props.listaMateriais?.map((material) => {
-                            return <tr key={material.id}>
-                                <td>{material.nome}</td>
-                                <td>{material.categoriaNome}</td>
+                        props.listaCategoriaMateriais?.map((categoriaMaterial) => {
+                            return <tr key={categoriaMaterial.id}>
+                                <td>{categoriaMaterial.nome}</td>
                                 <td>
                                     <Button onClick={() => {
-                                        props.editarMaterial(material)
+                                        props.editarCategoriaMaterial(categoriaMaterial)
                                     }}>
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             width="16"
@@ -99,7 +96,7 @@ export default function TabelaMateriais(props) {
                                     </Button>{' '}
                                     <Button onClick={() => {
                                         if (window.confirm("Confirma a exclusão?")) {
-                                            excluirMaterial(material.id);
+                                            excluirCategoriaMaterial(categoriaMaterial.id);
                                         }
                                     }}>
                                         <svg xmlns="http://www.w3.org/2000/svg"

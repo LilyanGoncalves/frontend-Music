@@ -6,15 +6,17 @@ import TelaFormularioMaterial from "../formularios/TelaFormularioMaterial";
 import TabelaMateriais from "../tabela/TabelaMateriais";
 
 export default function TelaCadastroMaterial(props) {
-    const [exibirTabela, setExibirTabela] = useState(true);
     const [listaMateriais, setListaMateriais] = useState([]);
+    const [exibirTabela, setExibirTabela] = useState(true);
     const [modoEdicao, setModoEdicao] = useState(false);
     const [materialEmEdicao, setMaterialEmEdicao] = useState({
-        nome: ""
+        nome: "",
+        idcategoria: "",
+        categoriaNome: ""
     });
-    
+    const [listaCategoriaMateriais, setListaCategoriaMateriais] = useState([]);
+
     function prepararMaterialParaEdicao(material) {
-        debugger
         setModoEdicao(true);
         setMaterialEmEdicao(material);
         setExibirTabela(false);
@@ -32,8 +34,24 @@ export default function TelaCadastroMaterial(props) {
         }).then((resposta) => {
             return resposta.json();
         }).then((dados) => {
+            debugger
             if (Array.isArray(dados)) {
-                setListaMateriais(dados);
+                setListaMateriais(  );
+                console.log(listaMateriais, listaMateriais.length);
+            }
+        });
+
+        //Carregar categorias dinamicamente do Banco de dados
+        fetch(urlBase + "/categoriamaterial", {
+            methodt: "GET"
+        }).then((resposta) => {
+            return resposta.json();
+        }).then((dados) => {
+            if (Array.isArray(dados)) {
+                setListaCategoriaMateriais(dados);
+                listaMateriais.map((material) =>{
+                    material.categoriaNome = listaCategoriaMateriais.filter((categoria) => categoria.id == material.idcategoria)
+                })
             }
         });
     }, []);  //<--WillMount

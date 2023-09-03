@@ -7,6 +7,7 @@ import TelaCadastroIntegrante from './telas/TelaCadastroIntegrante';
 import TelaCadastroMusica from './telas/TelaCadastroMusica';
 import TelaCadastroFuncao from './telas/TelaCadastroFuncao';
 import TelaCadastroMaterial from './telas/TelaCadastroMaterial';
+import TelaCadastroCategoriaMaterial from './telas/TelaCadastroCategoriaMaterial';
 import TelaLogin from './telas/loginPage';
 
 
@@ -21,6 +22,7 @@ function App() {
           <Route path='/funcoes' exact element={<TelaCadastroFuncao/>}/>
           <Route path='/musicas' exact element={<TelaCadastroMusica/>}/>
           <Route path='/materiais' exact element={<TelaCadastroMaterial/>}/>
+          <Route path='/categoriamateriais' exact element={<TelaCadastroCategoriaMaterial/>}/>
           <Route path='/contato' exact element={<TelaContato/>}/>
           <Route path='/consultas' exact element={<TelaConsulta/>}/>
         </Routes>
