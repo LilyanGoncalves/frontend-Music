@@ -69,7 +69,7 @@ export default function TabelaFuncoes(props) {
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>NomedaFuncao</th>
+                        <th>Nome da Funcao</th>
                         <th>Ações</th>
                     </tr>
                 </thead>

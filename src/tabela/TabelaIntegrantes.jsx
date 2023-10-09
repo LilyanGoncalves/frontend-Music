@@ -12,7 +12,6 @@ export default function TabelaIntegrantes(props) {
     }
 
     function filtrarIntegrantes(e) {
-        debugger
         const termoBusca = e.currentTarget.value;
         fetch(urlBase + "/integrante", { method: "GET" })
         .then((resposta) => {

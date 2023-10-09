@@ -19,7 +19,8 @@ function TelaCadastroIntegrante(props) {
         telefone: "",
         email: "",
         funcaoid: "",
-        funcaoNome: ""
+        funcaoNome: "",
+        listaFuncao:[]
     });
     const [listaFuncoes, setListaFuncoes] = useState([]);
 
@@ -57,7 +58,7 @@ function TelaCadastroIntegrante(props) {
             if (Array.isArray(dados)) {
                 setListaFuncoes(dados);
                 listaIntegrantes.map((integr)=>
-                    integr.funcaoNome = listaFuncoes.filter((funcao)=>funcao.id == integr.funcaoid))
+                    integr.funcaoNome = listaFuncoes.filter((funcao)=>funcao.id === integr.funcaoid))
             }
         });
     },[])

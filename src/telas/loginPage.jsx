@@ -26,7 +26,7 @@ function TelaLogin() {
     })
       .then((dados) => {
         debugger;
-        if (dados.status == true)  {
+        if (dados.status === true)  {
           window.alert("Logado com Sucesso");
           window.location.href = "http://localhost:3000/home"
           

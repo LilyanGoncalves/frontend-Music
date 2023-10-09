@@ -1,4 +1,4 @@
-import { Form, Row, Col, Container, Button } from "react-bootstrap";
+import { Form, Row, Col, Container, Button, Table } from "react-bootstrap";
 import { useState } from 'react';
 import '../css/form.css'
 import { urlBase } from "../utilitarios/definicoes";
@@ -16,6 +16,7 @@ function TelaFormularioIntegrante(props) {
     const id = elemForm.id;
     const valor = elemForm.value;
     setIntegrante({ ...integrante, [id]: valor });
+    debugger
   }
 
   function manipulaSubmissao(evento) {
@@ -85,6 +86,49 @@ function TelaFormularioIntegrante(props) {
     return items;
   }
 
+  function removerFuncao(id) {
+    // Filtrar o array para remover a função com o ID fornecido
+    const novaListaFuncao = integrante.listaFuncao.filter((funcao) => funcao.id !== id);
+  
+    // Atualizar o estado com a nova lista de funções
+    setIntegrante({
+      ...integrante,
+      listaFuncao: novaListaFuncao,
+    });
+  
+    alert('Função removida');
+  }
+  
+  function adicionaFuncao() {
+    debugger
+    const f = document.getElementById("selectfuncao");
+    const novaFuncaoId = +f[f.selectedIndex].value;
+    const novaFuncaoNome = props.listaFuncoes.filter((f) => f.id === novaFuncaoId)[0]?.nome;
+  
+    if (!novaFuncaoNome) {
+      alert('Função não encontrada');
+      return;
+    }
+  
+    // Verificar se a função já existe na lista
+    const funcaoExistente = integrante.listaFuncao.find((funcao) => funcao.id === novaFuncaoId);
+  
+    if (funcaoExistente) {
+      alert('A função já foi adicionada anteriormente.');
+      return;
+    }
+  
+    // Adicionar a nova função à lista
+    const novaFuncao = { id: novaFuncaoId, nome: novaFuncaoNome };
+    setIntegrante({
+      ...integrante,
+      listaFuncao: [...integrante.listaFuncao, novaFuncao],
+    });
+  
+    alert('Função adicionada com sucesso');
+  }
+  
+
 
   return (
     <Container className="formulario">
@@ -99,8 +143,6 @@ function TelaFormularioIntegrante(props) {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
-        </Row>
-        <Row>
           <Col>
             <Form.Group className="mb-3">
               <Form.Label>Nome: </Form.Label>
@@ -110,6 +152,8 @@ function TelaFormularioIntegrante(props) {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
+        </Row>
+        <Row>
           <Col>
             <Form.Group className="mb-3">
               <Form.Label>Endereço:</Form.Label>
@@ -119,8 +163,6 @@ function TelaFormularioIntegrante(props) {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
-        </Row>
-        <Row>
           <Col>
             <Form.Group className="mb-3">
               <Form.Label>Bairro:</Form.Label>
@@ -130,6 +172,8 @@ function TelaFormularioIntegrante(props) {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
+        </Row>
+        <Row>
           <Col>
             <Form.Group className="mb-3">
               <Form.Label>Cidade:</Form.Label>
@@ -139,8 +183,6 @@ function TelaFormularioIntegrante(props) {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
-        </Row>
-        <Row>
           <Col>
             <Form.Group className="mb-3">
               <Form.Label>Estado: </Form.Label>
@@ -177,6 +219,8 @@ function TelaFormularioIntegrante(props) {
               </Form.Select>
             </Form.Group>
           </Col>
+        </Row>
+        <Row>
           <Col>
             <Form.Group className="mb-3">
               <Form.Label>Telefone:</Form.Label>
@@ -186,8 +230,6 @@ function TelaFormularioIntegrante(props) {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
-        </Row>
-        <Row>
           <Col>
             <Form.Group className="mb-3">
               <Form.Label>E-mail:</Form.Label>
@@ -197,15 +239,63 @@ function TelaFormularioIntegrante(props) {
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
+        </Row>
+        <Row>
+          <Col>
+            <h1>FUNÇÕES</h1>
+          </Col>
+        </Row>
+        <Row>
           <Col>
             <Form.Group className="mb-3">
               <Form.Label>Função: </Form.Label>
-              <Form.Select aria-label="Default select example" value={integrante.funcaoid} defaultValue={integrante.funcaoid} onChange={manipularMudanca} id="funcaoid">
-                <option>Sua função</option>
+              <Form.Select aria-label="Default select example" id="selectfuncao" >
+                <option>Selecione uma função</option>
                 {carregaFuncoes()}
               </Form.Select>
             </Form.Group>
           </Col>
+          <Col>
+            <Button type="button" variant="success" className="mx-2 mt-33"
+              onClick={() => {
+                adicionaFuncao();
+              }}>Adicionar</Button>
+          </Col>
+        </Row>
+        <Row>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Funcao</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                integrante.listaFuncao?.map((funcao) => {
+                  return <tr key={funcao.nome}>
+                    <td>{funcao.nome}</td>
+                    <td>
+                      <Button onClick={() => {
+                        if (window.confirm("Confirma a exclusão?")) {
+                          removerFuncao(funcao.id);
+                        }
+                      }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                          height="16"
+                          fill="currentColor"
+                          className="bi bi-trash"
+                          viewBox="0 0 16 16">
+                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                          <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                        </svg>
+                      </Button>
+                    </td>
+                  </tr>
+                })
+              }
+            </tbody>
+          </Table>
         </Row>
         <Row>
           <Col>
@@ -214,7 +304,7 @@ function TelaFormularioIntegrante(props) {
               props.limparForm();
             }} className="mx-3">Voltar</Button>
             <Button type="reset" variant="danger">Cancelar</Button>
-            <Button type="submit" variant="success" className="mx-3" >Concluir</Button>
+            <Button type="submit" variant="success" className="mx-3" >Salvar</Button>
           </Col>
         </Row>
       </Form>

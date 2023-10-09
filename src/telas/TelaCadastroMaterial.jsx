@@ -50,7 +50,7 @@ export default function TelaCadastroMaterial(props) {
             if (Array.isArray(dados)) {
                 setListaCategoriaMateriais(dados);
                 listaMateriais.map((material) =>{
-                    material.categoriaNome = listaCategoriaMateriais.filter((categoria) => categoria.id == material.idcategoria)
+                    material.categoriaNome = listaCategoriaMateriais.filter((categoria) => categoria.id === material.idcategoria)
                 })
             }
         });

@@ -36,7 +36,6 @@ export default function TabelaMateriais(props) {
         fetch(urlBase + "/material", { method: "GET" })
             .then((resposta) => {
                 return resposta.json()
-                debugger
             })
             .then((dados) => {
                 if (Array.isArray(dados)) {
