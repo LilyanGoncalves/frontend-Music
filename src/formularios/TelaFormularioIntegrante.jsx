@@ -89,45 +89,45 @@ function TelaFormularioIntegrante(props) {
   function removerFuncao(id) {
     // Filtrar o array para remover a função com o ID fornecido
     const novaListaFuncao = integrante.listaFuncao.filter((funcao) => funcao.id !== id);
-  
+
     // Atualizar o estado com a nova lista de funções
     setIntegrante({
       ...integrante,
       listaFuncao: novaListaFuncao,
     });
-  
+
     alert('Função removida');
   }
-  
+
   function adicionaFuncao() {
     debugger
     const f = document.getElementById("selectfuncao");
     const novaFuncaoId = +f[f.selectedIndex].value;
     const novaFuncaoNome = props.listaFuncoes.filter((f) => f.id === novaFuncaoId)[0]?.nome;
-  
+
     if (!novaFuncaoNome) {
       alert('Função não encontrada');
       return;
     }
-  
+
     // Verificar se a função já existe na lista
     const funcaoExistente = integrante.listaFuncao.find((funcao) => funcao.id === novaFuncaoId);
-  
+
     if (funcaoExistente) {
       alert('A função já foi adicionada anteriormente.');
       return;
     }
-  
+
     // Adicionar a nova função à lista
     const novaFuncao = { id: novaFuncaoId, nome: novaFuncaoNome };
     setIntegrante({
       ...integrante,
       listaFuncao: [...integrante.listaFuncao, novaFuncao],
     });
-  
+
     alert('Função adicionada com sucesso');
   }
-  
+
 
 
   return (
@@ -256,7 +256,8 @@ function TelaFormularioIntegrante(props) {
             </Form.Group>
           </Col>
           <Col>
-            <Button type="button" variant="success" className="mx-2 mt-33"
+            <Button type="button" variant="success" className="mx-2"
+              style={{ marginTop: '33px' }}
               onClick={() => {
                 adicionaFuncao();
               }}>Adicionar</Button>
