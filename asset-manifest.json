@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/frontend-Music/static/css/main.96df9715.css",
+    "main.js": "/frontend-Music/static/js/main.8b239335.js",
+    "index.html": "/frontend-Music/index.html",
+    "main.96df9715.css.map": "/frontend-Music/static/css/main.96df9715.css.map",
+    "main.8b239335.js.map": "/frontend-Music/static/js/main.8b239335.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.96df9715.css",
+    "static/js/main.8b239335.js"
+  ]
+}
