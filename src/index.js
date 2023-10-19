@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+console.log('inicialização da aplicação');
 root.render(
   <React.StrictMode>
     <App />
